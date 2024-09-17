@@ -3,8 +3,7 @@ const app = express();
 const cors = require('cors')
 const mongoose = require('mongoose')
 
-const password = process.argv[2]
-const url = `mongodb+srv://logansailer0633:${password}@fso.l3joc.mongodb.net/?retryWrites=true&w=majority&appName=fso`
+const url = `process.env.MONGODB_URI`;
 
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
@@ -50,7 +49,9 @@ app.get("/", (request, response) => {
 });
 
 app.get("/api/notes", (request, response) => {
-  response.json(notes);
+  Note.find({}).then((notes) => {
+    response.json(notes);
+  });
 });
 
 const generateId = () => {
