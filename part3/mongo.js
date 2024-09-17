@@ -19,12 +19,12 @@ const noteSchema = new mongoose.Schema({
 });
 
 const Note = mongoose.model("Note", noteSchema);
-const note = new Note({
-  content: "I hate JS",
-  important: false,
+/*const note = new Note({
+  content: "test",
+  important: true,
 });
 
-/*note.save().then((result) => {
+note.save().then((result) => {
   console.log("note saved!");
   mongoose.connection.close();
 });*/
