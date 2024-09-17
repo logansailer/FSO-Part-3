@@ -1,6 +1,14 @@
 const express = require("express");
 const app = express();
 const cors = require('cors')
+const mongoose = require('mongoose')
+
+const password = process.argv[2]
+const url = `mongodb+srv://logansailer0633:${password}@fso.l3joc.mongodb.net/?retryWrites=true&w=majority&appName=fso`
+
+mongoose.set("strictQuery", false);
+mongoose.connect(url);
+
 
 let notes = [
   {
@@ -89,6 +97,13 @@ app.delete("/api/notes/:id", (request, response) => {
 });
 
 app.use(unknownEndpoint);
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
