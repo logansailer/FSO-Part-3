@@ -3,24 +3,12 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");
+const Person = require('./models/person')
 
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.static("dist"));
-
-const url = process.env.MONGODB_URI;
-console.log(url);
-mongoose.set("strictQuery", false);
-mongoose.connect(url);
-
-const personSchema = new mongoose.Schema({
-  name: "String",
-  number: "String",
-});
-
-const Person = mongoose.model("Person", personSchema);
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
